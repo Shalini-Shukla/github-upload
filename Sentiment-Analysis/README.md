@@ -1,5 +1,5 @@
 
-Steps to get the Sentiment Analyser Application run on GKE - 
+Steps to get Sentiment Analyser Application run on GKE - 
 
 Clone repository - https://github.com/rinormaloku/k8s-mastery
 
@@ -105,7 +105,7 @@ You can verify nodes using command - ```kubectl get nodes```
 You can verify pod creation using command - ```kubectl get pods```
 
 
-Now your kubernetes cluster is up.
+Now your kubernetes cluster is up!
 Next step is to create deployments for frontend, web app and logic on this newly created cluster.
 
 I went with the bottom up approach, which means I first created my logic deployment, then web-app deployment and lastly my front-end deployment.
@@ -113,8 +113,8 @@ I went with the bottom up approach, which means I first created my logic deploym
 
 SA-Logic Deployment Creation Steps - 
 Go to Container Registry -> Click on the SA-Logic Image -> There will be an option called Deploy on the top, click on it -> Choose Deploy to GKE
-This will automatically generate a yaml for you. Enter the new deployment name(‘sa-logic’ in my case) and press Confirm.
-This will create an SA Logic Deployment with 3 pods in it.
+
+This will automatically generate a yaml for you. Enter the new deployment name(‘sa-logic’ in my case) and press Confirm.This will create an SA Logic Deployment with 3 pods in it.
 
 
 SA-Logic Service Creation Steps -
@@ -129,7 +129,7 @@ SA-Web App Deployment Creation Steps -
 Go to Container Registry -> Click on the SA-Webapp image -> There will be an option called Deploy on the top, click on it -> Choose Deploy to GKE
 
 This will automatically generate a yaml for you. Enter the new deployment name(‘sa-webapp’ in my case). 
-Ans Add environment variable:-
+And add environment variable:-
 key: SA_LOGIC_API_URL 
 value: http://sa_logic_ip:5050/     <========= this contains the sa_logic service ip that you copied in the last step
 
@@ -165,3 +165,15 @@ class App extends Component {
         })
 
 Once you make this change, run command - ```npm run build``` and create a new docker image for SA-frontend and push it to docker hub and GCP Container registry. Once done follow the exact same steps as above to create SA-Frontend deployment and service. In this case, the target port and the internal port is 80. Once the SA-Frontend service is exposed, you can click on its external IP and voila! your sentimental analyser app is live!!!
+
+
+Docker Hub Link of SA-Frontend image – 
+https://hub.docker.com/repository/docker/shalinishukla123/sentiment-analysis-frontend
+
+
+Docker Hub link of SA-WebApp image – 
+https://hub.docker.com/repository/docker/shalinishukla123/sentiment-analysis-web-app
+
+
+Docker Hub link of SA-Logic image – 
+https://hub.docker.com/repository/docker/shalinishukla123/sentiment-analysis-logic
