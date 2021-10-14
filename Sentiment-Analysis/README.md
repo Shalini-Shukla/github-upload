@@ -4,9 +4,11 @@ Steps to get the Sentiment Analyser Application run on GKE -
 Clone repository - https://github.com/rinormaloku/k8s-mastery
 
 Navigate to your sa-frontend directory and type the following commands - 
-```npm install
+```
+npm install
 npm start
-npm run build```
+npm run build
+```
 
 Navigate to your sa-webapp and type the command  - ```mvn install``` 
 This will create a jar file that you will be copying to your root directory in your container as per your Dockerfile
