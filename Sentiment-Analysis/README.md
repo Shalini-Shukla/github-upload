@@ -1,5 +1,5 @@
 
-Steps to get Sentiment Analyser Application run on GKE - 
+#Steps to get Sentiment Analyser Application run on GKE - 
 
 Clone repository - https://github.com/rinormaloku/k8s-mastery
 
@@ -117,7 +117,7 @@ Go to Container Registry -> Click on the SA-Logic Image -> There will be an opti
 This will automatically generate a yaml for you. Enter the new deployment name(‘sa-logic’ in my case) and press Confirm.This will create an SA Logic Deployment with 3 pods in it.
 
 
-SA-Logic Service Creation Steps -
+######SA-Logic Service Creation Steps -
 Once the deployment is created, go to the Google Kubernetes Engine and go to Workloads on the left panel.
 You will be able to see your SA-Logic deployment on the screen. Click on it and on the right there will be an option called “Expose”
 Click on that and enter target port as 5000 and internal port as 5050. Click confirm and wait for the service to come up.
@@ -125,18 +125,18 @@ You can verify the service by going to 'Service and Ingress' option on the left 
 Make a note of the ip and port of the SA-logic service.
 
 
-SA-Web App Deployment Creation Steps - 
+######SA-Web App Deployment Creation Steps - 
 Go to Container Registry -> Click on the SA-Webapp image -> There will be an option called Deploy on the top, click on it -> Choose Deploy to GKE
 
 This will automatically generate a yaml for you. Enter the new deployment name(‘sa-webapp’ in my case). 
 And add environment variable:-
-key: SA_LOGIC_API_URL 
-value: http://sa_logic_ip:5050/     <========= this contains the sa_logic service ip that you copied in the last step
+**key:** SA_LOGIC_API_URL 
+**value:** http://sa_logic_ip:5050/     <========= this contains the sa_logic service ip that you copied in the last step
 
 Press confirm. You will be able to see your SA-Webapp deployment on the screen. You can also confirm this by running “kubectl get pods” on cloud shell.
 
 
-SA-Web App Service Creation Steps -
+######SA-Web App Service Creation Steps -
 Once the deployment is created, go to the Google Kubernetes Engine and go to workloads on the left panel.
 You will be able to see your SA-Webapp deployment on the screen. Click on it and on the right there will be an option called “Expose”
 Click on that and enter target port as 8080 and internal port as 8080. Click confirm and wait for the service to come up.
