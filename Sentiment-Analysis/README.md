@@ -1,5 +1,5 @@
 
-#Steps to get Sentiment Analyser Application run on GKE - 
+# Steps to get Sentiment Analyser Application run on GKE - 
 
 Clone repository - https://github.com/rinormaloku/k8s-mastery
 
@@ -10,11 +10,13 @@ npm start
 npm run build
 ```
 
-Navigate to your sa-webapp and type the command  - ```mvn install``` 
+Navigate to your sa-webapp directory and type the command  - ```mvn install``` 
 This will create a jar file that you will be copying to your root directory in your container as per your Dockerfile
 
 
-Build images locally and push to your DockerHub - 
+
+
+## Build images locally and push to your DockerHub - 
 
 Navigate to your sa-frontend directory and type the following commands - 
 ```
@@ -36,7 +38,7 @@ docker push shalinishukla123/sentiment-analysis-logic:latest
 ```
 
 
-Commands for M1 Mac, the commands are as follows - 
+## For M1 Mac, the commands are as follows - 
 
 ```
 docker buildx build --platform linux/amd64 -t shalinishukla123/sentiment-analysis-frontend:latest .
@@ -51,6 +53,7 @@ docker push shalinishukla123/sentiment-analysis-logic:latest
 
 Now, that our images are on DockerHub, lets move to GCP!
 
+## Steps to be followed on GCP -
 
 Login to your Google Cloud Platform and open Cloud Shell. All the commands mentioned below are to be typed on Cloud Shell.
 
@@ -101,7 +104,7 @@ NUM_NODES: 2
 STATUS: RUNNING
 ```
 
-You can verify nodes using command - ```kubectl get nodes```
+You can verify nodes using command - ```kubectl get nodes``` <br />
 You can verify pod creation using command - ```kubectl get pods```
 
 
@@ -111,40 +114,39 @@ Next step is to create deployments for frontend, web app and logic on this newly
 I went with the bottom up approach, which means I first created my logic deployment, then web-app deployment and lastly my front-end deployment.
 
 
-SA-Logic Deployment Creation Steps - 
-Go to Container Registry -> Click on the SA-Logic Image -> There will be an option called Deploy on the top, click on it -> Choose Deploy to GKE
+**SA-Logic Deployment Creation Steps -** <br />
+Go to Container Registry -> Click on the SA-Logic Image -> There will be an option called Deploy on the top, click on it -> Choose Deploy to GKE. <br />
 
-This will automatically generate a yaml for you. Enter the new deployment name(‘sa-logic’ in my case) and press Confirm.This will create an SA Logic Deployment with 3 pods in it.
+This will automatically generate a yaml for you. Enter the new deployment name(‘sa-logic’ in my case) and press Confirm. This will create an SA Logic Deployment with 3 pods in it.
+<br /><br />
 
-
-######SA-Logic Service Creation Steps -
+**SA-Logic Service Creation Steps -** <br />
 Once the deployment is created, go to the Google Kubernetes Engine and go to Workloads on the left panel.
 You will be able to see your SA-Logic deployment on the screen. Click on it and on the right there will be an option called “Expose”
 Click on that and enter target port as 5000 and internal port as 5050. Click confirm and wait for the service to come up.
 You can verify the service by going to 'Service and Ingress' option on the left panel of Google Kubernetes Engine. 
 Make a note of the ip and port of the SA-logic service.
+<br /><br />
 
-
-######SA-Web App Deployment Creation Steps - 
-Go to Container Registry -> Click on the SA-Webapp image -> There will be an option called Deploy on the top, click on it -> Choose Deploy to GKE
-
+**SA-Web App Deployment Creation Steps -** <br />
+Go to Container Registry -> Click on the SA-Webapp image -> There will be an option called Deploy on the top, click on it -> Choose Deploy to GKE. <br />
 This will automatically generate a yaml for you. Enter the new deployment name(‘sa-webapp’ in my case). 
-And add environment variable:-
-**key:** SA_LOGIC_API_URL 
-**value:** http://sa_logic_ip:5050/     <========= this contains the sa_logic service ip that you copied in the last step
+And add environment variable:-   <br />
+**key:** SA_LOGIC_API_URL     <br />
+**value:** http://sa_logic_ip:5050/     <========= this contains the sa_logic service ip that you copied in the last step  <br />
 
 Press confirm. You will be able to see your SA-Webapp deployment on the screen. You can also confirm this by running “kubectl get pods” on cloud shell.
 
-
-######SA-Web App Service Creation Steps -
+<br /><br />
+**SA-Web App Service Creation Steps -** <br />
 Once the deployment is created, go to the Google Kubernetes Engine and go to workloads on the left panel.
 You will be able to see your SA-Webapp deployment on the screen. Click on it and on the right there will be an option called “Expose”
 Click on that and enter target port as 8080 and internal port as 8080. Click confirm and wait for the service to come up.
 You can verify the service by going to 'Service and Ingress' option on the left panel of Google Kubernetes Engine. Make a note of the external ip of the SA-Webapp service.
+<br />
 
-
-Before running your front-end deployment, you need to make changes to your App.js file.
-
+Before running your front-end deployment, you need to make changes to your App.js file.  <br />
+```
 class App extends Component {
     constructor(props) {
         super(props);
@@ -163,9 +165,11 @@ class App extends Component {
             },
             body: JSON.stringify({sentence: this.textField.getValue()})
         })
-
+```
 Once you make this change, run command - ```npm run build``` and create a new docker image for SA-frontend and push it to docker hub and GCP Container registry. Once done follow the exact same steps as above to create SA-Frontend deployment and service. In this case, the target port and the internal port is 80. Once the SA-Frontend service is exposed, you can click on its external IP and voila! your sentimental analyser app is live!!!
 
+
+**Other References-**
 
 Docker Hub Link of SA-Frontend image – 
 https://hub.docker.com/repository/docker/shalinishukla123/sentiment-analysis-frontend
