@@ -167,8 +167,8 @@ class App extends Component {
         })
 ```
 Once you make this change, run command - ```npm run build``` and create a new docker image for SA-frontend and push it to docker hub and GCP Container registry. Once done follow the exact same steps as above to create SA-Frontend deployment and service. In this case, the target port and the internal port is 80. Once the SA-Frontend service is exposed, you can click on its external IP and voila! your sentimental analyser app is live!!!
-
 <br />
+
 **Other References-**
 
 Docker Hub Link of SA-Frontend image – 
