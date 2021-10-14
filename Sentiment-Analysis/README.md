@@ -136,8 +136,8 @@ And add environment variable:-   <br />
 **value:** http://sa_logic_ip:5050/     <========= this contains the sa_logic service ip that you copied in the last step  <br />
 
 Press confirm. You will be able to see your SA-Webapp deployment on the screen. You can also confirm this by running “kubectl get pods” on cloud shell.
-
 <br /><br />
+
 **SA-Web App Service Creation Steps -** <br />
 Once the deployment is created, go to the Google Kubernetes Engine and go to workloads on the left panel.
 You will be able to see your SA-Webapp deployment on the screen. Click on it and on the right there will be an option called “Expose”
@@ -168,7 +168,7 @@ class App extends Component {
 ```
 Once you make this change, run command - ```npm run build``` and create a new docker image for SA-frontend and push it to docker hub and GCP Container registry. Once done follow the exact same steps as above to create SA-Frontend deployment and service. In this case, the target port and the internal port is 80. Once the SA-Frontend service is exposed, you can click on its external IP and voila! your sentimental analyser app is live!!!
 
-
+<br />
 **Other References-**
 
 Docker Hub Link of SA-Frontend image – 
