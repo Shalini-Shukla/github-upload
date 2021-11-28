@@ -149,7 +149,8 @@ Jupyter UI looks like -
 Sonar-Qube-UI looks like -
 
 
-<img width="1440" alt="Screen Shot 2021-11-28 at 3 38 14 PM" src="https://user-images.githubusercontent.com/19831012/143785080-351c4ea7-ecd0-4013-9bf0-ba40f9c5c900.png">
+<img width="1440" alt="Sonar-Qube-UI" src="https://user-images.githubusercontent.com/19831012/143790460-1039bd2d-3017-4c58-9698-8e652d333628.png">
+
 
 
 ### Hadoop Master
