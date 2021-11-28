@@ -105,7 +105,7 @@ gcloud services enable container.googleapis.com
 gcloud container clusters create --machine-type n1-standard-2 --num-nodes 2 --zone us-central1-a --cluster-version latest big-data-project
 ```
 
-Navigate to Kubernetes Engine on the UI and you can see your cluster getting created -
+Navigate to Kubernetes Engine on the UI and you can see your cluster that you created -
 
 <img width="1440" alt="Screen Shot 2021-11-28 at 3 33 38 PM" src="https://user-images.githubusercontent.com/19831012/143784918-c1a6fa24-3636-4207-a145-c7bae9270fbb.png">
 
@@ -114,11 +114,11 @@ Navigate to Kubernetes Engine on the UI and you can see your cluster getting cre
 
 ### Application UI
 
-1. Create a new deployment using the Application UI Image that you uploaded on the Cloud Registry. Keep the yaml configurations as it is. 
-2. Create a service to expose this deployment where Target Port: 80 Port: 80.
+1. Create a new deployment using the Application UI Image that you uploaded on the Cloud Registry by navigating to that image and clicking on Deploy to GKE option. Keep the yaml configurations as it is. 
+2. Once the deployment is created, create a service to expose this deployment where Target Port: 80 Port: 80.
 3. Once the service is created, navigate to the URL 
 
-Application-UI looks like this -
+The Application-UI looks like this -
 
 
 <img width="1440" alt="Screen Shot 2021-11-28 at 3 35 27 PM" src="https://user-images.githubusercontent.com/19831012/143784984-f7636c74-2aeb-4db8-8c8e-ca1ebc5a2ff9.png">
@@ -127,8 +127,8 @@ Application-UI looks like this -
 
 ### Spark
 
-1. Create a new deployment using the Spark Image that you uploaded on the Cloud Registry. Keep the yaml configurations as it is.
-2. Create a service to expose this deployment where Target Port: 8080 Port: 8080.
+1. Create a new deployment using the Spark Image that you uploaded on the Cloud Registry by navigating to that image and clicking on Deploy to GKE option. Keep the yaml configurations as it is.
+2. Once the deployment is created, create a service to expose this deployment where Target Port: 8080 Port: 8080.
 3. Once the service is created, navigate to the URL 
 
 
@@ -143,7 +143,7 @@ Spark UI looks like this -
 ### Jupyter Notebook
 
 1. Create a new deployment using the Jupyter Image that you uploaded on the Cloud Registry. Keep the yaml configurations as it is.
-2. Create a service to expose this deployment where Target Port: 8888 Port: 8888.
+2. Once the deployment is created, create a service to expose this deployment where Target Port: 8888 Port: 8888.
 3. Once the service is created, navigate to the URL 
 
 Jupyter UI looks like -
@@ -156,7 +156,7 @@ Jupyter UI looks like -
 ### Sonar
 
 1. Create a new deployment using the Jupyter Image that you uploaded on the Cloud Registry. Keep the yaml configurations as it is.
-2. Create a service to expose this deployment where Target Port: 9000 Port: 9000.
+2. Once the deployment is created, create a service to expose this deployment where Target Port: 9000 Port: 9000.
 3. Once the service is created, navigate to the URL 
 
 Sonar-Qube-UI looks like -
@@ -172,6 +172,21 @@ Sonar-Qube-UI looks like -
 3. Once the service is created, navigate to the URL 
 
 
+Contents of the hadoop-env file -
+
+```
+CORE_CONF_fs_defaultFS=hdfs://namenode:9000
+CORE_CONF_hadoop_http_staticuser_user=root
+CORE_CONF_hadoop_proxyuser_hue_hosts=*
+CORE_CONF_hadoop_proxyuser_hue_groups=*
+CORE_CONF_io_compression_codecs=org.apache.hadoop.io.compress.SnappyCodec
+HDFS_CONF_dfs_webhdfs_enabled=true
+HDFS_CONF_dfs_permissions_enabled=false
+HDFS_CONF_dfs_namenode_datanode_registration_ip___hostname___check=false
+
+```
+
+
 ### Hadoop Worker
 
 1. Create a deployment using the datanode image. Set the environment variables as per the hadoop-env file. Also add environment variable SERVICE_PRECONDITION to http://namenode-service-name:9870.
@@ -181,10 +196,19 @@ Hadoop-Master-W:O-Worker UI looks like this -
 <img width="1440" alt="Screen Shot 2021-11-28 at 3 38 47 PM" src="https://user-images.githubusercontent.com/19831012/143785104-87be5ad2-073b-4825-b117-4b14c2fa3453.png">
 
 
+### GKE UI
+
+Once all the services are exposed, the Services and Ingress Tab on your GCP looks like the image below -
 
 
-Other images:-
+<img width="1440" alt="Screen Shot 2021-11-28 at 3 40 01 PM" src="https://user-images.githubusercontent.com/19831012/143785141-2ef7b9f2-b493-4a6d-b990-86b690368692.png">
 
+And all your deployments look like -
+
+<img width="1440" alt="Screen Shot 2021-11-28 at 3 40 11 PM" src="https://user-images.githubusercontent.com/19831012/143785146-5ab3d29c-616d-41af-be7d-09bfd40f02db.png">
+
+
+On Cloud Shell -
 
 <img width="1440" alt="Screen Shot 2021-11-28 at 3 39 32 PM" src="https://user-images.githubusercontent.com/19831012/143785123-5419ebf0-043e-4245-808f-0027dd01bf46.png">
 
@@ -194,11 +218,16 @@ Other images:-
 
 
 
-<img width="1440" alt="Screen Shot 2021-11-28 at 3 40 01 PM" src="https://user-images.githubusercontent.com/19831012/143785141-2ef7b9f2-b493-4a6d-b990-86b690368692.png">
+
+
+Once the services for all exposed deployments come up successfully, modify your Application's index.html (the href attribute of the button html element) to point to the IP address of the micro-service that we exposed. This way we make sure that when a button corresponding to Jupyter Notebook is clicked, the UI associated with Jupyter Notebook micro-service comes up. Once again repeat the steps above, create a new image and uplodad it to Docker Hub and Google Container Registry. create a new application deployment in our existing Kubernetes cluster and expose it using services. Once done, your application is up and running!
 
 
 
-<img width="1440" alt="Screen Shot 2021-11-28 at 3 40 11 PM" src="https://user-images.githubusercontent.com/19831012/143785146-5ab3d29c-616d-41af-be7d-09bfd40f02db.png">
+
+
+
+
 
 
 
