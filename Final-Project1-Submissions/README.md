@@ -190,7 +190,10 @@ Once the services for all exposed deployments come up successfully, modify your 
 
 1. Create a new deployment using the Application UI Image that you uploaded on the Cloud Registry by navigating to that image and clicking on Deploy to GKE option. Keep the yaml configurations as it is. 
 2. Once the deployment is created, create a service to expose this deployment where Target Port: 80 Port: 80.
-3. Once the service is created, navigate to the URL 
+3. Once the service is created, navigate to the URL. 
+
+Our application is now up and running!
+
 
 The Application-UI looks like this -
 
