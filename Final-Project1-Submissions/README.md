@@ -110,20 +110,7 @@ Navigate to Kubernetes Engine on the UI and you can see your cluster that you cr
 <img width="1440" alt="Screen Shot 2021-11-28 at 3 33 38 PM" src="https://user-images.githubusercontent.com/19831012/143784918-c1a6fa24-3636-4207-a145-c7bae9270fbb.png">
 
 
-
-
-### Application UI
-
-1. Create a new deployment using the Application UI Image that you uploaded on the Cloud Registry by navigating to that image and clicking on Deploy to GKE option. Keep the yaml configurations as it is. 
-2. Once the deployment is created, create a service to expose this deployment where Target Port: 80 Port: 80.
-3. Once the service is created, navigate to the URL 
-
-The Application-UI looks like this -
-
-
-<img width="1440" alt="Screen Shot 2021-11-28 at 3 35 27 PM" src="https://user-images.githubusercontent.com/19831012/143784984-f7636c74-2aeb-4db8-8c8e-ca1ebc5a2ff9.png">
-
-
+Now lets create deployments for our micro-services -
 
 ### Spark
 
@@ -196,6 +183,21 @@ Hadoop-Master-W:O-Worker UI looks like this -
 <img width="1440" alt="Screen Shot 2021-11-28 at 3 38 47 PM" src="https://user-images.githubusercontent.com/19831012/143785104-87be5ad2-073b-4825-b117-4b14c2fa3453.png">
 
 
+### Application UI
+
+Once the services for all exposed deployments come up successfully, modify your Application's index.html (the href attribute of the button html element) to point to the IP address of the micro-service that we exposed. This way we make sure that when a button corresponding to Jupyter Notebook is clicked, the UI associated with Jupyter Notebook micro-service comes up. Once again repeat the steps above, create a new image and uplodad it to Docker Hub and Google Container Registry. 
+
+
+1. Create a new deployment using the Application UI Image that you uploaded on the Cloud Registry by navigating to that image and clicking on Deploy to GKE option. Keep the yaml configurations as it is. 
+2. Once the deployment is created, create a service to expose this deployment where Target Port: 80 Port: 80.
+3. Once the service is created, navigate to the URL 
+
+The Application-UI looks like this -
+
+
+<img width="1440" alt="Screen Shot 2021-11-28 at 3 35 27 PM" src="https://user-images.githubusercontent.com/19831012/143784984-f7636c74-2aeb-4db8-8c8e-ca1ebc5a2ff9.png">
+
+
 ### GKE UI
 
 Once all the services are exposed, the Services and Ingress Tab on your GCP looks like the image below -
@@ -218,9 +220,6 @@ On Cloud Shell -
 
 
 
-
-
-Once the services for all exposed deployments come up successfully, modify your Application's index.html (the href attribute of the button html element) to point to the IP address of the micro-service that we exposed. This way we make sure that when a button corresponding to Jupyter Notebook is clicked, the UI associated with Jupyter Notebook micro-service comes up. Once again repeat the steps above, create a new image and uplodad it to Docker Hub and Google Container Registry. create a new application deployment in our existing Kubernetes cluster and expose it using services. Once done, your application is up and running!
 
 
 
