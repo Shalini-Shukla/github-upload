@@ -142,7 +142,7 @@ Jupyter UI looks like -
 
 ### Sonar
 
-1. Create a new deployment using the Jupyter Image that you uploaded on the Cloud Registry. Keep the yaml configurations as it is.
+1. Create a new deployment using the Sonar Image that you uploaded on the Cloud Registry. Keep the yaml configurations as it is.
 2. Once the deployment is created, create a service to expose this deployment where Target Port: 9000 Port: 9000.
 3. Once the service is created, navigate to the URL 
 
